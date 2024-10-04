@@ -1,0 +1,38 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "gatsby";
+import "../components/layout";
+
+const DonationHistory = () => {
+  const [donations, setDonations] = useState([]);
+
+  useEffect(() => {
+    const fetchDonations = async () => {
+      const response = await fetch("http://localhost:3001/donate");
+      if (response.ok) {
+        const data = await response.json();
+        setDonations(data);
+      } else {
+        console.error("Error fetching donations");
+      }
+    };
+
+    fetchDonations();
+  }, []);
+
+  return (
+    <div className="donation-history">
+      <h2>Latest 10 Donations</h2>
+      <ul>
+        {donations.map((donation) => (
+          <li key={donation._id}>
+            <p>Amount: ${(donation.amount / 100).toFixed(2)} USD</p>
+            <p>Date: {new Date(donation.created).toLocaleString()}</p>
+          </li>
+        ))}
+      </ul>
+      <Link to="/" className="back-to-home">Home Page</Link>
+    </div>
+  );
+};
+
+export default DonationHistory;

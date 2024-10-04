@@ -43,6 +43,12 @@ body {
   margin: 0;
   word-wrap: break-word;
 }
+.footer {
+  margin-top: var(--space-5);
+  font-size: var(--font-sm);
+  text-align: right;  /* Align text to the left */
+  width: 100%;       /* Ensure full width */
+}
 a {
   background-color: transparent;
   color: var(--color-primary);
@@ -55,11 +61,6 @@ a {
 a:active,
 a:hover {
   outline-width: 0;
-  text-decoration: none;
-}
-abbr[title] {
-  border-bottom: 1px dotted hsla(0, 0%, 0%, 0.5);
-  cursor: help;
   text-decoration: none;
 }
 b,
@@ -76,9 +77,35 @@ h1 {
   padding: 0;
   line-height: var(--line-height-dense);
   letter-spacing: -0.01em;
+  text-align: center;
+  color: #7026b9;
+  padding-top: 1 rem;
 }
 h1 > b {
   color: var(--color-primary);
+}
+h2 {
+  margin: 0;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  padding: 0;
+  line-height: var(--line-height-dense);
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #7026b9;
+  font-size: xx-large;
+}
+h3 {
+  margin: 0;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  padding: 0;
+  line-height: var(--line-height-dense);
+  letter-spacing: -0.01em;
+  text-align:left;
+  color: #7026b9;
+  font-size: x-large;
+  padding-left: 3rem;
 }
 img {
   border-style: none;
@@ -124,9 +151,35 @@ dd,
 p {
   margin: 0;
   padding: 0;
+  padding-left: 1 rem;
   margin-bottom: var(--space-4);
+  text-align: justify;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  text-align: justify;
+  font-size: x-large;
 }
-ul,
+ul{
+  margin: 0;
+  padding: 0;
+  margin-bottom: var(--space-4);
+  text-align: justify;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  text-align: justify;
+  font-size: x-large;
+}
+section{
+  margin: 0;
+  padding: 0;
+  margin-bottom: var(--space-4);
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  font-size: x-large;
+}
 ol {
   margin-left: var(--space-4);
   list-style-position: outside;
@@ -221,4 +274,74 @@ pre code:after,
 pre tt:before,
 pre tt:after {
   content: none;
+}
+.card-container {
+  display: flex;
+  flex-wrap: wrap;               
+  justify-content: space-around;  
+  align-items: flex-start;        
+  margin: 20px auto;              
+  max-width: 1200px;            
+}
+.card {
+  background-color: white;              
+  width: 45%;                           
+  margin: 10px;
+  padding: 20px;
+  border-radius: 8px;                   
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  text-decoration: none;               
+  color: #333;                         
+  transition: all 0.3s ease;            
+}
+.card:hover {
+  transform: translateY(-5px);          
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);  
+}
+.card h2 {
+  color: #663399;  
+  font-size: 24px; 
+  margin-bottom: 10px;
+  text-decoration: underline;
+}
+.card p {
+  font-size: 16px; 
+  color: #666;     
+}
+@media (max-width: 768px) {
+  .card {
+    width: 100%;   
+  }
+}
+.donation-history-card {
+  width: 100%;  
+  max-width: 600px; 
+  background-color: white;              
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+}
+
+.donation-history-card h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.donation-history-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.donation-history-card li {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+}
+
+.donation-history-card li p {
+  margin: 0;
+  color: #555;
 }
