@@ -1,13 +1,20 @@
 const express = require('express');
 const Stripe = require('stripe');
-const mongoose = require('mongoose'); // Import mongoose
+const mongoose = require('mongoose'); 
 require('dotenv').config();
 const cors = require('cors'); 
+
 
 const app = express();
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Connect to MongoDB
+app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:8000'
+  }));
+
+
+
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/donationDB')
     .then(() => {
         console.log('Connected to MongoDB');
@@ -16,7 +23,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/donationDB'
         console.error('MongoDB connection error:', error.message);
     });
 
-// Donation model
+
 const donationSchema = new mongoose.Schema({
     amount: {
         type: Number,
@@ -30,10 +37,8 @@ const donationSchema = new mongoose.Schema({
 
 const Donation = mongoose.model('Donation', donationSchema);
 
-app.use(express.json());
-app.use(cors());
 
-// POST route for donations
+
 app.post('/donate', async (req, res) => {
     console.log("Received a donation request:", req.body);
     const { amount } = req.body;
@@ -44,7 +49,6 @@ app.post('/donate', async (req, res) => {
             currency: 'usd',
         });
 
-        // Save the donation record to the database
         const newDonation = new Donation({ amount });
         await newDonation.save();
 
@@ -54,7 +58,6 @@ app.post('/donate', async (req, res) => {
     }
 });
 
-// GET route for fetching the latest donations
 app.get('/donate', async (req, res) => {
     try {
         const donations = await Donation.find().sort({ created: -1 }).limit(10);
