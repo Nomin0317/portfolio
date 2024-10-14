@@ -1,21 +1,28 @@
 const express = require('express');
-const Stripe = require('stripe');
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 require('dotenv').config();
-const cors = require('cors'); 
-
 
 const app = express();
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+const cors = require('cors');
+
+// Allow all origins during development
+app.use(cors({
+    origin: 'http://localhost:8000',  // Your Gatsby frontend
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type'],
+    credentials: true // Include credentials if necessary
+}));
+
+// Handle preflight requests
+app.options('*', cors());
+
+
 
 app.use(express.json());
-app.use(cors({
-    origin: 'http://localhost:8000'
-  }));
 
-
-
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/donationDB')
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/donationDB', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Connected to MongoDB');
     })
@@ -23,40 +30,32 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/donationDB'
         console.error('MongoDB connection error:', error.message);
     });
 
-
+// Define a Donation model
 const donationSchema = new mongoose.Schema({
-    amount: {
-        type: Number,
-        required: true,
-    },
-    created: {
-        type: Date,
-        default: Date.now,
-    },
+    amount: { type: Number, required: true },
+    created: { type: Date, default: Date.now }
 });
 
 const Donation = mongoose.model('Donation', donationSchema);
 
 
-
 app.post('/donate', async (req, res) => {
-    console.log("Received a donation request:", req.body);
     const { amount } = req.body;
 
-    try {
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount,
-            currency: 'usd',
-        });
+  
+    if (!amount || amount <= 0) {
+        return res.status(400).json({ error: "Invalid amount. Please enter a positive number." });
+    }
 
+    try {
         const newDonation = new Donation({ amount });
         await newDonation.save();
-
-        res.json({ clientSecret: paymentIntent.client_secret });
+        res.status(201).json({ message: 'Donation recorded', donation: newDonation });
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(500).json({ error: error.message });
     }
 });
+
 
 app.get('/donate', async (req, res) => {
     try {
@@ -68,5 +67,6 @@ app.get('/donate', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`)); 
+
 
