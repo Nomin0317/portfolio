@@ -1,5 +1,5 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const Donation = require("./donationModel"); 
+const Donation = require("../src/components/donationModel"); 
 
 exports.handler = async (event) => {
   if (event.httpMethod === 'POST') {
@@ -52,3 +52,5 @@ exports.handler = async (event) => {
     };
   }
 };
+
+
