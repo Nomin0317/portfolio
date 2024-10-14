@@ -6,15 +6,18 @@ const app = express();
 
 const cors = require('cors');
 
-// Allow all origins during development
+
 app.use(cors({
-    origin: 'http://localhost:8000',  // Your Gatsby frontend
+    origin: 'http://localhost:8000', 
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type'],
-    credentials: true // Include credentials if necessary
+    credentials: true 
 }));
 
-// Handle preflight requests
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 app.options('*', cors());
 
 
@@ -30,7 +33,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/donationDB'
         console.error('MongoDB connection error:', error.message);
     });
 
-// Define a Donation model
+
 const donationSchema = new mongoose.Schema({
     amount: { type: Number, required: true },
     created: { type: Date, default: Date.now }
