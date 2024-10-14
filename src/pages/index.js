@@ -10,23 +10,7 @@ import { loadStripe } from '@stripe/stripe-js';
 const stripePromise = loadStripe('pk_test_51Q5WxxGwjTrSsn51OYlFgP7BHpWzjRiMBn1OlNh3tnJSNBviIoy2wbKdDwu53aMNZGW0jPXw53rAUIQOVu2DLHyu00Fen15B2Q');
 
 const IndexPage = () => {
-  const [donations, setDonations] = React.useState([]);
-
- 
-  React.useEffect(() => {
-    const fetchDonations = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/donate");
-        const data = await response.json();
-        setDonations(data);
-      } catch (error) {
-        console.error("Error fetching donations:", error);
-      }
-    };
-    fetchDonations();
-  }, []);
-
-  return (
+ return (
     <Elements stripe={stripePromise}>
       <Layout>
         <div className={styles.textCenter}>
@@ -45,12 +29,12 @@ const IndexPage = () => {
               <h2>Project</h2>
               <p>Check out the project I've been working on.</p>
             </Link>
-            <Link to="/donation" className="card donation-card">
+            <Link to="/donate" className="card donation-card">
               <h2>Donate</h2>
               <p>Your support helps me continue my work. Thank you!</p>
             </Link>
             <Link to="/donationHistory" className="card donation-card">
-              <h2>Donation History</h2>
+              <h2>Donatio History</h2>
               <p>Click to see 10 latest donation history</p>
             </Link>
           </div>

@@ -5,22 +5,21 @@ import "../components/layout";
 const DonationHistory = () => {
   const [donations, setDonations] = useState([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const fetchDonations = async () => {
-      const response = await fetch("http://localhost:3001/donate");
-      if (response.ok) {
+      try {
+        const response = await fetch("http://localhost:3001/donate");
         const data = await response.json();
         setDonations(data);
-      } else {
-        console.error("Error fetching donations");
+      } catch (error) {
+        console.error("Error fetching donations:", error);
       }
     };
-
     fetchDonations();
   }, []);
 
   return (
-    <div className="donation-history">
+    <div className="donation-history-card">
       <h2>Latest 10 Donations</h2>
       <ul>
         {donations.map((donation) => (
