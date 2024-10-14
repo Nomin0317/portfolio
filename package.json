@@ -31,10 +31,12 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
-    "start": "gatsby develop",
-    "serve": "gatsby serve",
+    "start": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+  },
+  "engines": {
+    "node": "16.x"
   },
   "repository": {
     "type": "git",
@@ -44,3 +46,4 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }
+
