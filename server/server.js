@@ -54,7 +54,7 @@ app.post('/donate', async (req, res) => {
     }
 });
 
-app.get('/donate', async (req, res) => {
+app.get('/donations', async (req, res) => {
     try {
         const donations = await Donation.find().sort({ created: -1 }).limit(10);
         res.status(200).json(donations);
