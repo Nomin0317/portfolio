@@ -7,7 +7,7 @@ const cors = require('cors');
 const path = require('path');
 
 // MongoDB connection URI from environment variable
-const mongoURI = process.env.MONGO_URI;
+const mongoURI = 'mongodb+srv://Nomin:Batkhishig@cluster0.hk72p.mongodb.net/donationDB?retryWrites=true&w=majority';
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
