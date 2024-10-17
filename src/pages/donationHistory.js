@@ -8,7 +8,7 @@ const DonationHistory = () => {
   React.useEffect(() => {
     const fetchDonations = async () => {
       try {
-        const response = await fetch("http://localhost:3001/donate");
+        const response = await fetch("http://localhost:3001/donations");
         const data = await response.json();
         setDonations(data);
       } catch (error) {

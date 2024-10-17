@@ -17,7 +17,7 @@ mongoose.connect(mongoURI)
 
 
 const corsOptions = {
-    origin: process.env.NODE_ENV === 'production' ? 'https://server-nomin.herokuapp.com' : 'http://localhost:8000',
+    origin: "*",
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type'],
     credentials: true 
