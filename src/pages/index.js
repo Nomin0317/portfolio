@@ -34,7 +34,7 @@ const IndexPage = () => {
               <p>Your support helps me continue my work. Thank you!</p>
             </Link>
             <Link to="/donationHistory" className="card donation-card">
-              <h2>Donatio History</h2>
+              <h2>Donation History</h2>
               <p>Click to see 10 latest donation history</p>
             </Link>
           </div>
