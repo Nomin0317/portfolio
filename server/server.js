@@ -70,7 +70,9 @@ app.get('/donations', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
+app.use((req, res) => {
+    res.status(404).send('404: Not Found');
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
